@@ -15,7 +15,7 @@
           <m:ResponseCode>NoError</m:ResponseCode>
           <m:MessageText>Some text</m:MessageText>
           <m:MessageXml>Some XML</m:MessageXml>
-          <m:RootFolder TotalItemsInView="1" IncludesLastItemInRange="true">
+          <m:RootFolder TotalItemsInView="1" IncludesLastItemInRange="true" IndexedPagingOffset="2">
             <t:Items>
               <t:Item>
                 <t:ItemId Id="AQAnAH" ChangeKey="AQAAABY"/>
