@@ -39,9 +39,9 @@ describe Viewpoint::EWS::SOAP::EwsBuilder do
         end
       end
 
-      expected_response = load_soap 'find_item', :request
-      expected_response = Nokogiri.XML(expected_response).to_xml
-      expect(req.to_xml).to eq(expected_response)
+      expected_request = load_soap 'find_item', :request
+      expected_request = Nokogiri.XML(expected_request).to_xml
+      expect(req.to_xml).to eq(expected_request)
     end
   end
 end

@@ -27,4 +27,18 @@ describe Viewpoint::EWS::Types::Folder do
       expect(items[0].id).to eq('AQAnAH')
     end
   end
+
+  context '#paging' do
+    let(:items) { subject.items }
+
+    subject { described_class.new(ews, ews_item) }
+
+    it 'returns includes_last_item_in_range' do
+      expect(items.includes_last_item_in_range).to eq(true)
+    end
+
+    it 'returns indexed_paging_offset' do
+      expect(items.indexed_paging_offset).to eq(2)
+    end
+  end
 end

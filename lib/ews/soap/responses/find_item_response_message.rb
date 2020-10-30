@@ -27,7 +27,7 @@ module Viewpoint::EWS::SOAP
     end
 
     def indexed_paging_offset
-      attrib :index_paging_offset
+      attrib :indexed_paging_offset
     end
 
     def numerator_offset
