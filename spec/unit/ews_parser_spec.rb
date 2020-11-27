@@ -66,5 +66,4 @@ describe "Exchange Response Parser Functionality" do
     expect(resp.header).to be nil
     expect(resp.response_messages).to be_empty
   end
-
 end
