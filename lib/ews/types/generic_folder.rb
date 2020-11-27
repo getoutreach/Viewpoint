@@ -374,6 +374,7 @@ module Viewpoint::EWS::Types
     end
 
     def items_parser(resp)
+      return FolderView.new(nil) if resp.response_messages.empty?
       rm = resp.response_messages[0]
       if(rm.status == 'Success')
         items = FolderView.new(rm.root_folder)

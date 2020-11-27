@@ -49,15 +49,12 @@ module Viewpoint::EWS::SOAP
       return @response_messages if @response_messages
 
       @response_messages = []
-      unless response.nil?
-        response_type = response.keys.first
-        response_messages_entry = response[response_type][:elems].find{ |e| e.key?(:response_messages) }
-        if response_messages_entry
-          response_messages_entry[:response_messages][:elems].each do |rm|
-            response_message_type = rm.keys[0]
-            rm_klass = class_by_name(response_message_type)
-            @response_messages << rm_klass.new(rm)
-          end
+      elements = response_elements
+      if elements
+        elements.each do |rm|
+          response_message_type = rm.keys[0]
+          rm_klass = class_by_name(response_message_type)
+          @response_messages << rm_klass.new(rm)
         end
       end
       @response_messages
@@ -66,17 +63,22 @@ module Viewpoint::EWS::SOAP
 
     private
 
-
     def simplify!
-      return if response.nil?
-      response_type = response.keys.first
-      response_messages_entry = response[response_type][:elems].find{ |e| e.key?(:response_messages) }
-      if response_messages_entry
-        response_messages_entry[:response_messages][:elems].each do |rm|
+      elements = response_elements
+      if elements
+        elements.each do |rm|
           key = rm.keys.first
           rm[key][:elems] = rm[key][:elems].inject(&:merge)
         end
       end
+    end
+
+    def response_elements
+      response_value = response&.values&.first&.[](:elems)
+      return [] if response_value.nil?
+      response_value.find { |e|
+        e.key?(:response_messages)
+      }&.[](:response_messages)&.[](:elems)
     end
 
     def class_by_name(cname)
